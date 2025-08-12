@@ -13,70 +13,17 @@ public class Main {
         // for menu choice
         int menuChoice = 1;
 
-        /** TODO 1: extend the class Animal to create a new
-         *          land based animal named "Tiger" which extends
-         *          Animal.
-         *          Extra properties of class "Tiger" are:
-         *          1. number of stripes
-         *          2. speed
-         *          3. sound level of roar
-         *
-         **/
+
         Tiger tigerObject = new Tiger();
         tigerObject.setNameOfAnimal("Tiger");
 
-        /** TODO 2: extend the class Animal to create a new
-         *          water based animal named "Dolphin" which
-         *          extends Animal
-         *          Extra properties of class "Dolphin" include:
-         *          1. color of dolphin
-         *          2. swimming speed
-         *
-         **/
+
         Dolphin dolphinObject = new Dolphin();
         dolphinObject.setNameOfAnimal("Dolphin");
 
         Penguin penguinObject = new Penguin();
         penguinObject.setNameOfAnimal("Penguin");
 
-
-        /** TODO 3: implemement the "Eat" interface in the
-         *          "Tiger" class created in the TODO 1
-         *          and also in the
-         *          "Dolphin" class created in TODO 2.
-         **/
-
-
-
-        /** TODO 5: implement the "Walk" interface in
-         *          "Tiger" class created in the TODO 1
-         *          and in the  implementation of the
-         *          "walking" method of the interface
-         *          display -
-         *          " I am walking at the speed "
-         *          and join the value of the variable "speed"
-         *
-         **/
-
-        /** TODO 6: create a new interface named "Swim"
-         *          and declaring a method inside it
-         *          named "swimming" with the return type
-         *          "void"
-         **/
-
-        /** TODO 7: implement the "Swim" interface
-         *          in the "Dolphin" class and the
-         *          "swimming" method in its implementation
-         *          should display the swimming speed as
-         *          "Dolphin: I am swimming at the speed ...."
-         *          where .... is the value of the variable
-         *          "swimmingSpeed"
-         **/
-
-
-        /** TODO 8: create a menu system to work with the Animal selected
-         *          use the switch provided below
-         **/
         do {
             switch (animalChoiceMenu(keyboard)) {
                 case 1:
@@ -220,9 +167,7 @@ public class Main {
             continueOuterLoop = keyboard.nextInt();
 
         } while(continueOuterLoop == 1);
-        /** TODO 9: create a class "Penguin" from the "Animal" class **/
 
-        /** TODO 10: integrate the choice to pick a "penguin" in the menu system **/
 
     }
 
