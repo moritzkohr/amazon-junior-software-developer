@@ -32,13 +32,18 @@ public class Main {
                     // use a print statement to instruct the user to enter a seat number for booking.
                     // take the seat number input from the user.
                     // pass the seat number to the addNewBooking method to add the
-
+                    System.out.println("Enter a seat number for booking (e.g. A1):");
+                    String seatNumber = keyboard.nextLine();
+                    bookingManager.addNewBooking(seatNumber);
                     break;
                 case 2:
                     // TODO 17: remove Booking
                     // print a message instructing the user to enter the seat number they wish to cancel.
                     // take the seat number input from the user.
                     // call the cancelBooking method with the provided seat number to cancel the booking.
+                    System.out.println("Enter the seat number you wish to cancel (e.g. A1):");
+                    seatNumber = keyboard.nextLine();
+                    bookingManager.cancelBooking(seatNumber);
                     break;
                 case 3:
                     // TODO 18: update booking
@@ -47,8 +52,11 @@ public class Main {
                     // prompt the user to enter the new seat number.
                     // take the new seat number input from the user.
                     // call the updateBooking method with the old and new seat numbers to update the booking.
-
-
+                    System.out.println("Enter the old seat number you wish to update (e.g. A1):");
+                    String oldSeatNumber = keyboard.nextLine();
+                    System.out.println("Enter the new seat number (e.g. A2):");
+                    String newSeatNumber = keyboard.nextLine();
+                    bookingManager.updateBooking(oldSeatNumber, newSeatNumber);
                     break;
                 case 4:
                     // display the all bookings
