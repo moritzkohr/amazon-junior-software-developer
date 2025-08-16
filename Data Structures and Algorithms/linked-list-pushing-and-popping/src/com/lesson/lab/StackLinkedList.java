@@ -18,14 +18,19 @@ public class StackLinkedList {
     // Constructor to initialize the stack
     public StackLinkedList() {
         // TODO 1: set the top variable to null in the constructor to indicate an empty stack
+        this.top = null;
     }
 
     // Push Operation - Add elements to the stack
     public void push(String action) {
         // TODO 2: create a new Node object with the action
+        Node newNode = new Node(action);
         // TODO 3: set the next of new node to current top
+        newNode.next=top;
         // TODO 4: update the top to new node
+        top=newNode;
         // TODO 5: print a confirmation message
+        System.out.println("Added: \""+action+"\"");
     }
 
     //Pop Operation - Remove and return the top element of the stack
@@ -35,7 +40,14 @@ public class StackLinkedList {
         // TODO 8: store the data of the top node
         // TODO 9: update the top pointer to the next node
         // TODO 10: print a confirmation message and return the removed data
-        return "";
+        if(top==null){
+            System.out.println("Stack is empty");
+            return null;
+        }
+        String poppedData=top.data;
+        top=top.next;
+        System.out.println("Removed: \""+poppedData+"\"");
+        return poppedData;
     }
 
     // Peek Operation - Display the top element without removing it
@@ -45,7 +57,12 @@ public class StackLinkedList {
         // TODO 13: retrieve the data from the top node
         // TODO 14: print the top element data
         // TODO 15: return the data from the top node
-        return "";
+        if(top==null){
+            System.out.println("Stack is empty");
+            return null;
+        }
+        System.out.println("Element at top: \""+top.data+"\"");
+        return top.data;
     }
 
     // Display All Elements - List all elements in the stack
@@ -56,5 +73,14 @@ public class StackLinkedList {
         // TODO 19: traverse the stack using a while loop.
         // TODO 20: print the data of the current node during each iteration.
         // TODO 21: update current to current.next to move to the next node.
+        if(top==null){
+            System.out.println("Stack is empty");
+            return;
+        }
+        Node current=top;
+        while(current!=null){
+            System.out.println(current.data);
+            current=current.next;
+        }
     }
 }
