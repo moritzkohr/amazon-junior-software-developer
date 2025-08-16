@@ -24,6 +24,7 @@ public class DoublyLinkedPlaylistManager {
             this.previous = null;
         }
     }
+
     private Node head;
     private Node current;
 
@@ -49,6 +50,7 @@ public class DoublyLinkedPlaylistManager {
             }
             last.next = newNode;
             //TODO 21: set the previous reference of the new node to the last node
+            newNode.previous = last;
         }
         System.out.println(newSong.getTitle() + " added to the playlist.");
     }
@@ -80,6 +82,7 @@ public class DoublyLinkedPlaylistManager {
             head = head.next;
             if (head != null) {
                 // TODO 22: updates the previous reference of the head with null if the first node is removed.
+                head.previous=null;
             }
             return;
         }
@@ -95,9 +98,11 @@ public class DoublyLinkedPlaylistManager {
             System.out.println(current.song.getTitle() + " removed from the playlist.");
             if (current.previous != null) {
                 //TODO 23: update the next reference of the previous node to skip over the current node.
+                current.previous.next=current.next;
             }
             if (current.next != null) {
                 //TODO 24: update the previous reference of the next node to point to the previous node of the current node.
+                current.next.previous=current.previous;
             }
         }
     }
@@ -133,7 +138,14 @@ public class DoublyLinkedPlaylistManager {
         // If no previous song exists, print a message indicating playlist is empty
         //TODO 26: sets current to current.previous
         //TODO 27: print the song that is now playing
+        if (current == null || current.previous == null){
+            System.out.println("No previous song in the playlist");
+        }else{
+            current=current.previous;
+            System.out.println("Now playing: "+current.song);
+        }
     }
+
     // Method to start playing from the first song in the playlist
     public void setCurrentToFirst() {
         current = head;
@@ -143,6 +155,7 @@ public class DoublyLinkedPlaylistManager {
             System.out.println("Playlist is empty.");
         }
     }
+
     // Check if playlist is empty
     public boolean isEmpty() {
         return head == null;

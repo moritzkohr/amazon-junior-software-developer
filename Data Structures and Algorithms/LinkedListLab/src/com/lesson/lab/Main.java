@@ -10,8 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         //TODO 19: uncomment below code to run Doubly linked list code
-        // DoublyLinkedPlaylistManager playlistManager = new  DoublyLinkedPlaylistManager();
-
+        //DoublyLinkedPlaylistManager playlistManager = new  DoublyLinkedPlaylistManager();
         // uncomment below code to run singly linked list code
         SinglyLinkedPlaylistManager playlistManager = new SinglyLinkedPlaylistManager();
         Scanner keyboard = new Scanner(System.in);
@@ -92,7 +91,7 @@ public class Main {
                 case 5:
                     // TODO 20: uncomment this when run the doubly linked list
                     //move to the previous song in the playlist
-                    // playlistManager.playPreviousFavoriteSong();
+                    playlistManager.playPreviousFavoriteSong();
                     break;
                 case 6:
                     playlistManager.setCurrentToFirst();
