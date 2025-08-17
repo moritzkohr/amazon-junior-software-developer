@@ -14,13 +14,13 @@ public class WaitingList {
         ListManager listManager = new ListManager(students);
 
         // TODO 20: Change the studentLastName to "Rad".
-        String studentLastName = "Carson";
+        String studentLastName = "Rad";
 
         // TODO 8: Change the value of option to 5 and run the application.
         // TODO 14: Change the value of option to 6 and run the application.
         // TODO 21: Change the value of option to 7 and run the application.
         // TODO 27: Change the value of option to 8 and run the application.
-        int option = 1;
+        int option = 8;
 
         System.out.println();
         switch (option) {
