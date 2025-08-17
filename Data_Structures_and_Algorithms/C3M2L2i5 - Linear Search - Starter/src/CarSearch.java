@@ -32,60 +32,76 @@ public class CarSearch {
 
 
     public ArrayList searchAvailability(String availability) {
-
         // TODO 1: Create a results ArrayList to hold the search results
-
+        ArrayList results = new ArrayList();
         /* TODO 2: Loop over the cars array, comparing the value of the
                    availability field to the method parameter. Save
                    matching cars to the results array list. */
-
+        for(Object obj : cars){
+            Car car = (Car) obj;
+            if(car.availability.equals(availability)){
+                results.add(car);
+            }
+        }
         /* TODO 3: if the results is empty, print a message saying
                    nothing was found */
-
+        if(results.isEmpty()){
+            System.out.println("No cars found marked as '"+availability+"'.");
+        }
         // TODO 4: Return results ArrayList.
-
-        return null;
+        return results;
     }
 
 
     public ArrayList search(String make, String model, String color){
-
         // TODO 5: Create a results ArrayList to hold the search results
-
+        ArrayList results = new ArrayList();
         /* TODO 6: Loop over the cars array, comparing the value of the
                    make, model, and color fields to the method
                    parameters. */
-
         /* TODO 7: if the make, model, and color of the Car instance
                    match the method parameters, add it to the results
                    ArrayList. */
-
+        for (Object obj : cars) {
+            Car car = (Car) obj;
+            if (car.make.equals(make) && car.model.equals(model) && car.color.equals(color)) {
+                results.add(car);
+            }
+        }
         // TODO 8: If the results is empty. Print a message.
-
+        if(results.isEmpty()){
+            System.out.println("No cars found matching the search criteria.");
+        }
         // TODO 9: Return the results ArrayList
-        return null;
+        return results;
     }
 
     public ArrayList searchPrice(double priceLimit, boolean lowerThan){
-
         /* TODO 10: Create a results ArrayList to hold the search
                     results */
-
+        ArrayList results = new ArrayList();
         /* TODO 11: Loop over the cars array, comparing the price field
                     to the method parameters. */
-
         /* TODO 12: If the lowerThan boolean is true, add all cars
                     whose price is less than the priceLimit to the
                     results */
-
         /* TODO 13: If the lowerThan boolean is false, add all the
                     cars whose price is greater than the priceLimit
                     to the results */
-
+        for(Object obj : cars){
+            Car car = (Car)obj;
+            if(lowerThan && car.price < priceLimit){
+                results.add(car);
+            }else if(!lowerThan&&car.price > priceLimit){
+                results.add(car);
+            }
+        }
         // TODO 14: If the results is empty. Print a message.
-
+        if(results.isEmpty()){
+            System.out.println("No cars found matching the search criteria.");
+        }
         // TODO 15: Return the results ArrayList
-        return null;
+        return results;
     }
 
 
