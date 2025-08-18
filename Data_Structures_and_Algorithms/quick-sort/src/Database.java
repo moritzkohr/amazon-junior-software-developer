@@ -28,93 +28,95 @@ public class Database {
     }
 
     public void quickSort() {
-
         /* TODO 1: Initialize a high index variable to the size of
-                   the registrations array minus 1.  */
-
+                the registrations array minus 1.  */
+        int high = registrations.size() - 1;
         /* TODO 2: Initialize a low index variable to zero*/
-
+        int low = 0;
         /* TODO 3: Create a while loop that will run as long as the low index
-                 is less than the high index  */
-
-        /* TODO 4: Within the while loop, call the partition() method
-                   passing in the high and low indexes.  */
-
-        /* TODO 5: Initialize a pivot index variable with the value
-                   returned by the partition() method. */
-
-        /* TODO 22: Implement an If-Else-If-Else statement. The If clause is
-                   true when the pivot index minus 1 exceeds the low index. */
-
-        /* TODO 23: When the If clause is true, set the high index equal
-                 to the pivot index minus 1 */
-
-        /* TODO 24: Implement the Else-If clause so it's true when the
-                   pivot index plus 1 is less than the high index */
-
-        /* TODO 25: When Else-If is true, set the low index equal to the
-                 pivot index plus 1 */
-
-        /* TODO 26: When neither the If nor the Else-IF clause is true,
-                 implement the Else clause to break out of the
-                 while loop and end the sort */
-
+                is less than the high index  */
+        while (low < high) {
+            /* TODO 4: Within the while loop, call the partition() method
+                    passing in the high and low indexes.  */
+            /* TODO 5: Initialize a pivot index variable with the value
+                    returned by the partition() method. */
+            int pivotIndex = partition(high, low);
+            /* TODO 22: Implement an If-Else-If-Else statement. The If clause is
+                    true when the pivot index minus 1 exceeds the low index. */
+            if (pivotIndex - 1 > low) {
+                /* TODO 23: When the If clause is true, set the high index equal
+                    to the pivot index minus 1 */
+                high = pivotIndex - 1;
+                /* TODO 24: Implement the Else-If clause so it's true when the
+                    pivot index plus 1 is less than the high index */
+            } else if (pivotIndex + 1 < high) {
+                /* TODO 25: When Else-If is true, set the low index equal to the
+                    pivot index plus 1 */
+                low = pivotIndex + 1;
+            } else {
+                /* TODO 26: When neither the If nor the Else-IF clause is true,
+                    implement the Else clause to break out of the
+                    while loop and end the sort */
+                break;
+            }
+        }
     }
 
     private int partition(int highIndx, int lowIndx) {
-
         /* TODO 6: Create a subarray from the registrations array that
-                   starts at the low_index and ends at the high_Index
-                   plus 1  */
-
+                starts at the low_index and ends at the high_Index
+                plus 1  */
+        List subArray = registrations.subList(lowIndx, highIndx + 1);
         /* TODO 7: Initialize the pivot element to the last element in the
-                   subarray */
-
+                    subarray */
+        Registration pivotElement = (Registration) subArray.get(subArray.size() - 1);
         /* TODO 8: Initialize a greater-than index with negative 1  */
-
+        int greaterThanIndex = -1;
         /* TODO 9: Create a for loop initializing a current index variable
-                 to zero.
+                to zero.
            TODO 10: Set the condition so the loop runs as long as the
-                 current index is less than the last index of the subarray.
+                current index is less than the last index of the subarray.
            TODO 11: Increment the current index at the end of each iteration.
          */
+        for (int currentIndx = 0; currentIndx < subArray.size() - 1; currentIndx++) {
+            /* TODO 12: Get the element at the current index */
+            Registration currentElement = (Registration) subArray.get(currentIndx);
+            /* TODO 14: Comment out the print statement below */
+            //System.out.println("Pivot: " + pivotElement.license + ", Current: " + currentElement.license);
 
-        /* TODO 12: Get the element at the current index */
-
-        /* TODO 14: Comment out the print statement below */
-        System.out.println("Pivot: " + pivotElement.license +
-                ", Current: " + currentElement.license);
-
-        /* TODO 15: Implement an IF statement whose condition is true when
+            /* TODO 15: Implement an IF statement whose condition is true when
                     the current element’s license is less than or equal to
                     the pivot element’s license. */
-
-        /* TODO 16: If true, increment the greater-than index  */
-
-        /* TODO 17: Implement a nested IF statement whose condition is true
+            if (currentElement.license.compareTo(pivotElement.license) <= 0) {
+                /* TODO 16: If true, increment the greater-than index  */
+                greaterThanIndex++;
+                /* TODO 17: Implement a nested IF statement whose condition is true
                     if the greater-than index is less than the current
                     index. */
-
-        /* TODO 18: If true, call the swap() method passing in the subarray,
+                if (greaterThanIndex < currentIndx) {
+                    /* TODO 18: If true, call the swap() method passing in the subarray,
                     the greater-than index, and the current index */
-
+                    swap(subArray, greaterThanIndex, currentIndx);
+                }
+            }
+        }
         /* TODO 19: After the for loop, initialize a pivot index variable
                     equal to the greater-than index plus 1  */
-
+        int pivotIndex = greaterThanIndex + 1;
         /* TODO 20: Call the swap() method passing in the subarray, the
                     pivot index, and the index of the last element in the
                     subarray  */
-
+        swap(subArray, pivotIndex, subArray.size() - 1);
         /* TODO 21: Replace the return with the pivot index plus the
                     low_Index as an offset to the registrations array. */
-        return 0;
+        return pivotIndex + lowIndx;
     }
 
     private void swap(List subArray, int i, int j) {
         Registration iElement = (Registration) subArray.get(i);
         Registration jElement = (Registration) subArray.get(j);
         subArray.set(i, jElement);
-        subArray.set(j, iElement);/
+        subArray.set(j, iElement);
     }
 
     public void bubbleSort() {
@@ -210,8 +212,8 @@ public class Database {
         db.quickSort();
 
         /* TODO 27: Uncomment the last two lines */
-        //System.out.println("\n******* Sorted ArrayList ******\n");
-        //db.printAll();
+        System.out.println("\n******* Sorted ArrayList ******\n");
+        db.printAll();
 
     }
 
