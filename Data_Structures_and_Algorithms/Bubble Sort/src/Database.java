@@ -39,65 +39,63 @@ public class Database {
 
     }
 
-    public void printAll(){
+    public void printAll() {
         for (Object obj : registrations) {
             Registration reg = (Registration) obj;
             System.out.println(reg);
         }
     }
-    /************************************************************************
-     // TODO 4: Uncomment the bubble sort method
-     public void bubbleSort() {
-     // TODO 5: Declare two local variables n and swapped
-
-     for (int i = 0; i < n - 1; i++) {
-     // TODO 6: Set swapped to false
-
-     for (int j = 0; j < n - 1 - i; j++) {
-     // TODO 7: Get references to two Registration objects.
-     //         The current registration is at index j and
-     //         the next registration is at index (j + 1)
-
-     // TODO 11: Remove the nextJ declaration and the print statement.
-     int nextJ = j + 1;
-     System.out.println(j + " " + currentReg.license + ", "
-     + nextJ+ " " + nextReg.license);
 
 
-     // TODO 12: Uncomment the IF statement.
-     // TODO 13 Write an IF condition that is true if the license
-     //         value of the current registration is greater than
-     //         that of the next Registration object.
-     //if ( … IF condition goes here … ) {
-     // TODO 14: Swap the positions of the current and next
-     //          Registration objects in the array
+    // TODO 4: Uncomment the bubble sort method
+    public void bubbleSort() {
+        // TODO 5: Declare two local variables n and swapped
+        int n = registrations.size();
+        boolean swapped = false;
+        for (int i = 0; i < n - 1; i++) {
+            // TODO 6: Set swapped to false
+            swapped = false;
+            for (int j = 0; j < n - 1 - i; j++) {
+                // TODO 7: Get references to two Registration objects.
+                //         The current registration is at index j and
+                //         the next registration is at index (j + 1)
+                Registration currentReg = (Registration) registrations.get(j);
+                Registration nextReg = (Registration) registrations.get(j + 1);
+                // TODO 11: Remove the nextJ declaration and the print statement.
 
 
-     // TODO 15: Set the swapped variable to true;
+                // TODO 12: Uncomment the IF statement.
+                // TODO 13 Write an IF condition that is true if the license
+                //         value of the current registration is greater than
+                //         that of the next Registration object.
+                if (currentReg.license.compareTo(nextReg.license) > 0) {
+                    // TODO 14: Swap the positions of the current and next
+                    //          Registration objects in the array
+                    registrations.set(j, nextReg);
+                    registrations.set(j + 1, currentReg);
+                    // TODO 15: Set the swapped variable to true;
+                    swapped = true;
+                }
+            }
+            if (!swapped) {
+                break;
+            }
+        }
+    }
 
-     //}
-     }
-     if (!swapped) {
-     break;
-     }
-     }
-     }
-     ***************************************************************************************/
+
     public static void main(String[] args) {
-
         // TODO 1: Create an instance of the Database class
-
+        Database db = new Database();
         System.out.println("\n******* Unsorted List ******\n");
-
         // TODO 2: Call the printAll() method on the Database instance
-
+        db.printAll();
         System.out.println("\n******* Sorted List ******\n");
-
         // TODO 8: Call the bubbleSort() method on the
         //          Database instance.
-
         // TODO 9: call the printAll() method
-
+        db.bubbleSort();
+        db.printAll();
 
     }
 }
