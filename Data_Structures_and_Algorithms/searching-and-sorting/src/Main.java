@@ -4,6 +4,7 @@ import java.util.Stack;
 public class Main {
     static Scanner keyboard;
     static StudentInfoSystem studentInfoSystem = new StudentInfoSystem();
+
     public static void main(String[] args) {
         keyboard = new Scanner(System.in);
         while (true) {
@@ -45,7 +46,8 @@ public class Main {
             }
         }
     }
-    public static void createStudent(){
+
+    public static void createStudent() {
         System.out.println("Enter student name as \"last, first\":");
         String name = keyboard.nextLine();
         int number = studentInfoSystem.newStudentNumber();
@@ -53,21 +55,21 @@ public class Main {
         System.out.println("Here is a list of subjects available.");
         /* TODO 4: Replace the call to sortSubjectById() to
                    sortSubjectByName() */
-        List<Subject> subjects = studentInfoSystem.sortSubjectsById();
+        List<Subject> subjects = studentInfoSystem.sortSubjectsByName();
 
         for (Subject subject : subjects) {
             System.out.println(" " + subject);
         }
 
         int subjectCount = 0;
-        while(subjectCount == 0) {
+        while (subjectCount == 0) {
             System.out.println("\nEnter number of subjects desired:");
             subjectCount = keyboard.nextInt();
             keyboard.nextLine();
             if (subjectCount >= 6) {
                 System.out.println("A Student may enroll for no more than five subjects.\n");
                 subjectCount = 0;
-            } else if (subjectCount < 1 ) {
+            } else if (subjectCount < 1) {
                 System.out.println("A Student may enroll for at least one subject.\n");
                 subjectCount = 0;
             }
@@ -81,13 +83,13 @@ public class Main {
         ordinal.put(4, "fourth");
         ordinal.put(5, "fifth");
         for (int i = 0; i < subjectCount; i++) {
-            System.out.println("\nEnter the" + (subjectCount == 1 ? "":" " + ordinal.get(i+1)) + " Subject ID:");
+            System.out.println("\nEnter the" + (subjectCount == 1 ? "" : " " + ordinal.get(i + 1)) + " Subject ID:");
             String subjectId = keyboard.nextLine();
             Subject subject = studentInfoSystem.findSubject(subjectId);
             if (subject != null) {
                 subjectsSelected.add(i, subject);
                 System.out.println("Subject " + subject.id + " " + subject.name + " added\n");
-                while(true) {
+                while (true) {
                     System.out.println("Exam dates and times for " + subject.name);
                     List<Exam> exams = studentInfoSystem.findExams(subject.id);
                     for (Exam exam : exams) {
@@ -96,24 +98,24 @@ public class Main {
                     System.out.println("Select an exam date and time by exam id");
                     int examId = keyboard.nextInt();
                     keyboard.nextLine();
-                    Exam exam = studentInfoSystem.findExam(examId,exams);
+                    Exam exam = studentInfoSystem.findExam(examId, exams);
                     if (exam != null) {
                         examsSelected.add(exam);
                         System.out.println("\nAdded: " + subject + ", Exam: " + exam.date + " " + exam.time);
                         break;
-                    }else{
+                    } else {
                         System.out.println("Exam " + examId + " not found. Try again");
                     }
                 }
-                if(i + 1 < subjectCount){
+                if (i + 1 < subjectCount) {
                     System.out.println("\nAvailable Subjects");
                     subjects.remove(subject);
                     for (Subject sub : subjects) {
                         System.out.println(" " + sub);
                     }
                 }
-            }else{
-                System.out.println("\nInvalid subject ID '"+ subjectId +"'. Please enter a valid subject ID.");
+            } else {
+                System.out.println("\nInvalid subject ID '" + subjectId + "'. Please enter a valid subject ID.");
                 i--;
             }
         }
@@ -132,7 +134,7 @@ public class Main {
         System.out.println("\n**********************\n");
     }
 
-    public static void removeStudent(){
+    public static void removeStudent() {
         System.out.println("\nEnter student number to remove:");
         int studentNumber = keyboard.nextInt();
 
@@ -142,40 +144,43 @@ public class Main {
             studentInfoSystem.removeStudent(studentToRemove);
             System.out.println("\nStudent " + studentNumber + " " +
                     studentToRemove.name + " has been removed");
-        }else{
+        } else {
             System.out.println("\nStudent number '" + studentNumber +
                     "' doesn't exist.");
         }
     }
 
-    public static void viewStudents(){
+    public static void viewStudents() {
         System.out.println("\nAlphabetical list of students:");
 
         /* TODO 16: Replace the call to sortStudentsByNumber() with
                    sortStudentsByName() */
-        List<Student> studentsByName = studentInfoSystem.sortStudentsByNumber();
+        List<Student> studentsByName = studentInfoSystem.sortStudentsByName();
 
         for (Student student : studentsByName) {
             System.out.println(student);
         }
     }
-    public static void viewExamSchedule(){
+
+    public static void viewExamSchedule() {
         System.out.println("Enter student number to view exam schedule:");
         int studentNumber = keyboard.nextInt();
         Student student = studentInfoSystem.findStudent(studentNumber);
         System.out.println("Exam Schedule for " + student.name + ":");
         List<Exam> exams = student.getExams();
-        for(Subject subject : student.subjects) {
+        for (Subject subject : student.subjects) {
 
             for (Exam exam : exams) {
-                if(exam.subjectId.compareTo(subject.id) == 0) {
+                if (exam.subjectId.compareTo(subject.id) == 0) {
                     System.out.println(" " + subject.name + ": " + exam.date + " " + exam.time);
                 }
             }
         }
     }
 
-    Stack<String> actions = new Stack<>();;
+    Stack<String> actions = new Stack<>();
+    ;
+
     public void undoLastAction() {
         if (!actions.isEmpty()) {
             String lastAction = actions.pop();
