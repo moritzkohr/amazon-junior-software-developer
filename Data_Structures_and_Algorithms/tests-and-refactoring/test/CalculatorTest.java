@@ -1,54 +1,14 @@
 import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
-
-
-    /** TODO 1: create a test method "testCalculatorClassExists" **/
-
-    /** TODO 2: inside the test method
-     *          "testCalculatorClassExists()"
-     *          which you created in TODO 1
-     *          create an object of the "Calculator" class,
-     *          using "new".
-     *          Name the object "calculatorTestObject".
-     **/
-
-    /** TODO 4: inside the method
-     *          "testCalculatorClassExists()"
-     *          which you created in TODO 1,
-     *          test if the object of the "Calculator" class
-     *          named "calculatorTestObject"
-     *          was created correctly
-     *          after the line where you created the object in TODO 2
-     *          by using assertNotNull()
-     **/
-
-
-
-    /** TODO 5: below TODO 6
-     *          create a test method named
-     *          "testAddTwoIntegersMethodExists"
-     **/
-
-    /** TODO 6: inside the method you created in TODO 5
-     *          create an object of
-     *          class Calculator named
-     *          "calculatorTestObject" and use it to
-     *          call the method
-     *          "addTwoIntegers"
-     *          with the values 2 and 4 passed
-     *          as parameters to the method.
-     */
-
     /** TODO 8: go to the top of this class
      *          "CalculatorTest" and just after the
      *          opening curly brace of the class,
      *          declare an object of "Calculator" class named
      *          "calculatorTestObject"
      **/
-
-
     /** TODO 9: after the declaration of the object
      *          named  "calculatorTestObject",
      *          create a method named "setup"
@@ -58,20 +18,73 @@ class CalculatorTest {
      *          declared on top using new.
      *
      **/
-
-    /** TODO 10: remove the line creating the object named
+    /**
+     * TODO 10: remove the line creating the object named
      *           "calculatorTestObject"
      *           from both the methods named
      *           "testCalculatorClassExists()" and
      *           "testAddTwoIntegersMethodExists()"
+     *           Annotation: Instructions online are to comment out the lines
      **/
+    Calculator calculatorTestObject;
+
+    @BeforeEach
+    void setup() {
+        calculatorTestObject = new Calculator();
+    }
+
+    /** TODO 1: create a test method "testCalculatorClassExists" **/
+    /** TODO 2: inside the test method
+     *          "testCalculatorClassExists()"
+     *          which you created in TODO 1
+     *          create an object of the "Calculator" class,
+     *          using "new".
+     *          Name the object "calculatorTestObject".
+     **/
+    /**
+     * TODO 4: inside the method
+     *          "testCalculatorClassExists()"
+     *          which you created in TODO 1,
+     *          test if the object of the "Calculator" class
+     *          named "calculatorTestObject"
+     *          was created correctly
+     *          after the line where you created the object in TODO 2
+     *          by using assertNotNull()
+     **/
+    @Test
+    void testCalculatorClassExists() {
+        //Calculator calculatorTestObject = new Calculator();
+        assertNotNull(calculatorTestObject);
+    }
+
+
+    /** TODO 5: below TODO 6
+     *          create a test method named
+     *          "testAddTwoIntegersMethodExists"
+     **/
+    /**
+     * TODO 6: inside the method you created in TODO 5
+     *          create an object of
+     *          class Calculator named
+     *          "calculatorTestObject" and use it to
+     *          call the method
+     *          "addTwoIntegers"
+     *          with the values 2 and 4 passed
+     *          as parameters to the method.
+     */
+    @Test
+    void testAddTwoIntegersMethodExists() {
+        //Calculator calculatorTestObject = new Calculator();
+        calculatorTestObject.addTwoIntegers(2, 4);
+    }
+
 
     /** TODO 11: create a test method named
      *          "testAddTwoIntegerMethodAddsCorrectly()"
      *          after TODO 12
      **/
-
-    /** TODO 12: inside the method
+    /**
+     * TODO 12: inside the method
      *           "testAddTwoIntegerMethodAddsCorrectly()"
      *           which you created in TODO 11
      *           you have to assert that the method
@@ -81,6 +94,10 @@ class CalculatorTest {
      *           to call the method and use
      *           assertEquals() to check if 6 is returned or not.
      **/
+    @Test
+    void testAddTwoIntegerMethodAddsCorrectly() {
+        assertEquals(6, calculatorTestObject.addTwoIntegers(2, 4));
+    }
 
     /** TODO 14: create a test method named
      *           "testAddTwoIntegerMethodOnRangeExceedThrowsException()"
@@ -88,8 +105,8 @@ class CalculatorTest {
      *           This will be used to test for exceptions.
      *           Remember to annotate with @Test.
      **/
-
-    /** TODO 15: in the test method named
+    /**
+     * TODO 15: in the test method named
      *           "testAddTwoIntegerMethodOnRangeExceedThrowsException()"
      *           which you created in TODO 14.
      *           assert that the method "addTwoIntegers()"
@@ -98,5 +115,8 @@ class CalculatorTest {
      *           Integer.MAX_VALUE and 1 are passed as parameters
      *           or the integer range is exceeded.
      **/
-
+    @Test
+    void testAddTwoIntegerMethodOnRangeExceedThrowsException() {
+        assertThrows(ArithmeticException.class, () -> calculatorTestObject.addTwoIntegers(Integer.MAX_VALUE, 1));
+    }
 }
