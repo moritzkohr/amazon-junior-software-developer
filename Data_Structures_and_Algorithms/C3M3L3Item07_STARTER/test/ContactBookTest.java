@@ -16,12 +16,11 @@ class ContactBookTest {
 
     @Test
     public void testAddContact() {
-        Contact testContact = new Contact("AmazonStudent","1111122334");
+        Contact testContact = new Contact("AmazonStudent", "1111122334");
 
         /** TODO 1: add the Contact named "AmazonStudent" to the contactBook
          *          using the method "addContact()" of the class "ContactBook"
          **/
-
         /** TODO 3: get the number of current contacts by calling the method
          *          "getNumberOfContacts()" of the object "contactBook" and
          *          assign the value returned to a variable named "currentNumOfContacts"
@@ -33,6 +32,9 @@ class ContactBookTest {
          *          "getNumberOfContacts()" of the object "contactBook" is
          *          1 greater than the value of "currentNumOfContacts"
          **/
+        int currentNumOfContacts = contactBook.getNumberOfContacts();
+        contactBook.addContact(testContact);
+        assertEquals(currentNumOfContacts + 1, contactBook.getNumberOfContacts());
 
     }
 
@@ -53,8 +55,8 @@ class ContactBookTest {
     @Test
     public void testAddContact_onSameNumber_ThrowsIllegalArgumentException() {
 
-        Contact testContact1 = new Contact("Alex","11111");
-        Contact testContact2 = new Contact("Toni","11111");
+        Contact testContact1 = new Contact("Alex", "11111");
+        Contact testContact2 = new Contact("Toni", "11111");
 
         // first contact
         contactBook.addContact(testContact1);
@@ -81,18 +83,25 @@ class ContactBookTest {
          *          v.	Assert that the name and phone number of the Contact returned is the same
          *              as the object created having the same name and phone number.
          **/
+        Contact testContactForPhone = new Contact("Toni", "184048");
+        contactBook.addContact(testContactForPhone);
+        Contact foundContact = contactBook.searchContactByPhone("184048");
+        assertNotNull(foundContact);
+        assertEquals(testContactForPhone.getName(), foundContact.getName());
+        assertEquals(testContactForPhone.getPhoneNumber(), foundContact.getPhoneNumber());
 
     }
 
     @Test
     public void testRemoveContactByPhone_found_returnsTrue() {
 
-        Contact testContactForPhone = new Contact("Wills","939503");
+        Contact testContactForPhone = new Contact("Wills", "939503");
         contactBook.addContact(testContactForPhone);
 
         /** TODO 9: assert that when the method "deleteContactByPhone()"
          *          is called with the phone number 939503, it returns true
          **/
+        assertTrue(contactBook.deleteContactByPhone("939503"));
 
     }
 
@@ -103,6 +112,9 @@ class ContactBookTest {
          *            passed a phone number which does not exist in the list of contacts like
          *            923746439503.
          **/
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactBook.deleteContactByPhone("923746439503");
+        });
     }
 }
 

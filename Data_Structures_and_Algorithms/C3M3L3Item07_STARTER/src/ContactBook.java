@@ -48,14 +48,12 @@ public class ContactBook {
      *          true or false. Return the default
      *          value true
      **/
-
     /** TODO 4: in the method "addContact()" which you created in TODO 2
      *          remove the default return value of true and then:
      *              i. assign the contact object to the array
      *              ii. increment the counter "numberOfContacts" by 1
      *           then return true.
      **/
-
     /** TODO 5: in the method "addContact()" which you created in TODO 2
      *          and modified in TODO 4 put then  lines
      *                  contacts[numberOfContacts++] = contact;
@@ -68,7 +66,6 @@ public class ContactBook {
      *          to return false.
      *
      **/
-
     /** TODO 6: in the method "addContact()" which you created
      *          put a nested if statement inside the if statement you
      *          created in TODO 6 so that it utilizes the method named
@@ -80,6 +77,17 @@ public class ContactBook {
      *          with any suitable message.
      *
      **/
+    public boolean addContact(Contact contact){
+        if (numberOfContacts+1<=MAX_CONTACTS) {
+            if(contactWithSameNumberExists(contact)) {
+                throw new IllegalArgumentException("Contact with same phone number already exists");
+            }
+            contacts[numberOfContacts++]=contact;
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 
@@ -92,6 +100,12 @@ public class ContactBook {
          *         Otherwise return the default contact object which is returnContact.
          *              Hint:  Look at method contactWithSameNumberExists()  which contains similar logic.
          **/
+        for(int i=1; i<=numberOfContacts; i++) {
+            if(contacts[i-1].getPhoneNumber().equalsIgnoreCase(phoneNumber)) {
+                returnContact = contacts[i-1];
+                break;
+            }
+        }
         return returnContact;
     }
 
@@ -113,7 +127,7 @@ public class ContactBook {
          *           to throw an IllegalArgumentException with any message
          *           you like to indicate the record was not found.
          **/
-        return  recordFound;
+        throw new IllegalArgumentException("Record not found");
 
     }
 }
