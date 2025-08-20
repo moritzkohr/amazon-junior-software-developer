@@ -12,7 +12,9 @@ public class Library {
             String line;
             while ((line = br.readLine()) != null) {
                 //  TODO - missing code
-                
+                String[] details = line.split(",");
+                Book book = new Book(details[0], details[1], Integer.parseInt(details[2]));
+                books.add(book);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,6 +29,12 @@ public class Library {
 
     public Book searchBookByKeyword(String keyword) {
         // TODO missing code
+        keyword = keyword.toLowerCase();
+        for(Book book:books){
+            if(book.getTitle().toLowerCase().contains(keyword)||book.getAuthor().toLowerCase().contains(keyword)||String.valueOf(book.getPublicationYear()).contains(keyword)){
+                return book;
+            }
+        }
         return null;
     }
 

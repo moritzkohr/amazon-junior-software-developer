@@ -7,6 +7,7 @@ public class LibrarySerializer {
     public void saveLibrary(List<Book> books, String fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             // TODO - missing code
+            oos.writeObject(books);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -19,11 +20,10 @@ public class LibrarySerializer {
             return null;
         }
 
-        try
-                (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             // TODO - missing code
-        }
-        catch (EOFException e) {
+            return (List<Book>) ois.readObject();
+        } catch (EOFException e) {
 
             System.err.println("The file is empty or corrupted: " + fileName);
             return null;

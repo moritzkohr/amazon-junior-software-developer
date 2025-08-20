@@ -24,6 +24,12 @@ public class UserInteractionLogger {
     // Generic method to log messages with a timestamp
     public void log(String message) {
         // TODO - missing code.
+        LocalDateTime now = LocalDateTime.now();
+        try (FileWriter fw = new FileWriter(LOG_FILE, true)) {
+            fw.write(now + ": " + message + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
