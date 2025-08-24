@@ -1,7 +1,6 @@
 package com.example;
 
 
-
 public class User {
     private int userId;
     private String userName;
@@ -12,6 +11,15 @@ public class User {
     private int rewardPoints;
 
     public User() {
+    }
+
+    public User(String userName, String userEmail, String firstName, String lastName, String phoneNumber, int rewardPoints) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.rewardPoints = rewardPoints;
     }
 
     public int getUserId() {
@@ -69,8 +77,6 @@ public class User {
     public void setRewardPoints(int rewardPoints) {
         this.rewardPoints = rewardPoints;
     }
-
-
 
 
     @Override
