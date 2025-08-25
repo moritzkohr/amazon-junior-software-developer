@@ -1,5 +1,8 @@
 package com.example.database;
 
+
+import org.mariadb.jdbc.*;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +16,7 @@ public class DatabaseUtils {
 
     private ConnectionHelper mysqlDatabaseConnectionHelper;
 
-    public DatabaseUtils(String databaseURL, String username, String password) {
+    public DatabaseUtils(String databaseURL, String username, String password) throws SQLException {
         // create an instance of the ConnectionHelper class
         this.mysqlDatabaseConnectionHelper = new ConnectionHelper();
         // connect to the MySQL database using the provided databaseURL, username, and password
@@ -27,10 +30,11 @@ public class DatabaseUtils {
 
         try (
                 // TODO 6: fetch the connection instance created in the constructor by calling the getConnection() method and call the getConnection() method on it
-
+                Connection connection = mysqlDatabaseConnectionHelper.getDataSource().getConnection();
                 // TODO 7: create a statement instance to execute queries on the MySQL database
-
+                Statement sqlStatement = connection.createStatement();
                 // TODO 8: execute a query to fetch customer data from the coffee_orders table
+                ResultSet fetchAllCustomersQueryResultSet = sqlStatement.executeQuery("SELECT * FROM coffee_orders;");
 
         ) {
 
@@ -38,10 +42,15 @@ public class DatabaseUtils {
             while (fetchAllCustomersQueryResultSet.next()) {
 
                 // TODO 9: fetch the value of each column from the coffee_orders table one by one
+                long orderID = fetchAllCustomersQueryResultSet.getLong("order_id");
+                String customerName = fetchAllCustomersQueryResultSet.getString("customer_name");
+                int quantity = fetchAllCustomersQueryResultSet.getInt("quantity");
+                double totalPrice = fetchAllCustomersQueryResultSet.getDouble("total_price");
 
                 // TODO 10: put all the fetched values into a Java object of the Customer class
-
+                Customer customer = new Customer(orderID, customerName, quantity, totalPrice);
                 // TODO 11: put this customer object in the list
+                customers.add(customer);
 
             }
 

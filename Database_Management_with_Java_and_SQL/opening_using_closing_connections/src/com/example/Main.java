@@ -1,5 +1,8 @@
 package com.example;
 
+import org.mariadb.jdbc.*;
+
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,10 +10,10 @@ import com.example.database.DatabaseUtils;
 import com.example.model.Customer;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         // create a connection to the database
-        DatabaseUtils databaseUtility  = new DatabaseUtils("jdbc:mysql://localhost:3306/clicknbuy", "root", "password");
+        DatabaseUtils databaseUtility  = new DatabaseUtils("jdbc:mariadb://localhost:3306/clicknbuy", "moritz", "");
 
         System.out.println("Connected to the 'clicknbuy' database successfully!");
 
