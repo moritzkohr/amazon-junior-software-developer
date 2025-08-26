@@ -1,5 +1,7 @@
 package com.lab;
 
+import org.mariadb.jdbc.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -60,12 +62,19 @@ public class CarRentalDBManager {
 
         try {
             // TODO 1: write the SQL query to insert a new car into the cars table.
+            String carQuery = "INSERT INTO cars (model, year, availability) VALUES (?, ?, ?)";
             /* TODO 2: use a PreparedStatement to execute the customerQuery
              * set the model : "Toyota Camry"
              * set the year: 2021
              * set the availability : false
              * execute the query using the executeUpdate() method
              */
+            pstmt = conn.prepareStatement(carQuery, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, "Toyota Camry");
+            pstmt.setInt(2, 2021);
+            pstmt.setBoolean(3, false);
+            pstmt.executeUpdate();
+
             // retrieve the generated car_id from the ResultSet after executing the update
             generatedKeys = pstmt.getGeneratedKeys();
             int carId = 0;
@@ -74,11 +83,17 @@ public class CarRentalDBManager {
                 carId = generatedKeys.getInt(1);
             }
             // TODO 3: write the SQL query to insert a new customer into the customers table
+            String customerQuery = "INSERT INTO customers (name, car_id) VALUES (?, ?)";
             /* TODO 4: create a PreparedStatement using the customerQuery.
              * set the customer name : John Doe
              * set car_id:retrieved from the generated keys
              * execute the query using the executeUpdate() method
              */
+            customerPstmt = conn.prepareStatement(customerQuery);
+            customerPstmt.setString(1, "John Doe");
+            customerPstmt.setInt(2, carId);
+            customerPstmt.executeUpdate();
+
             // print success messages confirming that the car and customer were successfully added
             System.out.println("Car added successfully: Toyota Camry (2021)");
             System.out.println("Customer 'John Doe' associated with car ID: " + carId);
@@ -107,19 +122,28 @@ public class CarRentalDBManager {
     // Task2: Updating a car's availability and removing the customer
     public static void updateCarAndRemoveCustomer(Connection conn) throws SQLException {
         // TODO 5: write the SQL query to update the availability of the car
+        String updateCarQuery = "UPDATE cars SET availability = ? WHERE car_id = ?";
 
         /* TODO 6: use a PreparedStatement to execute the query to update the car's availability
          * set the availability: true
          * car id (1 for Toyota Camry)
          * execute the query
          */
+        PreparedStatement pstmt = conn.prepareStatement(updateCarQuery);
+        pstmt.setBoolean(1, true);
+        pstmt.setInt(2, 1);
+        pstmt.executeUpdate();
 
         // TODO 7: write the SQL query to delete the customer entry from the 'customers' table
+        String deleteCustomerQuery = "DELETE FROM customers WHERE customer_id = ?";
 
         /* TODO 8: use a PreparedStatement to execute the query to remove the customer
          * set car_id : 1
          * execute the query
          */
+        PreparedStatement customerPstmt = conn.prepareStatement(deleteCustomerQuery);
+        customerPstmt.setInt(1, 1);
+        customerPstmt.executeUpdate();
 
         // print success messages
         System.out.println("Car availability updated: Toyota Camry is now available.");
@@ -133,7 +157,10 @@ public class CarRentalDBManager {
 
         try {
             // TODO 9: write the SQL query to fetch all available cars and their associated customers
+            String fetchAllCarsQuery = "SELECT cars.model, customers.name FROM cars LEFT JOIN customers ON cars.car_id = customers.car_id WHERE cars.availability = true";
             // TODO 11: use a Statement object to execute the query and retrieve the result set
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(fetchAllCarsQuery);
             /* TODO 12: iterate over the result set and print the details of each available car
              * loop through each row in the ResultSet
              *  retrieve the car model
@@ -144,6 +171,15 @@ public class CarRentalDBManager {
              *      print that the car is available if no customer is associated
              */
             // print a separator for clarity
+            while( rs.next()){
+                String carModel = rs.getString("model");
+                String customerName = rs.getString("name");
+                if(customerName == null){
+                    System.out.println(carModel + " is available.");
+                }else{
+                    System.out.println(carModel + " is rented by " + customerName + ".");
+                }
+            }
             System.out.println("----------------------");
         } catch (SQLException e) {
             // Handle SQL exception
@@ -199,9 +235,9 @@ public class CarRentalDBManager {
 
     // Establishing Connection:
     private static Connection getDatabaseConnection() {
-        String url = "jdbc:mysql://localhost:3306/";
-        String user = "root";
-        String password = "password";
+        String url = "jdbc:mariadb://localhost:3306";
+        String user = "jdbc_coursera";
+        String password = "";
 
         try {
             return DriverManager.getConnection(url, user, password);
