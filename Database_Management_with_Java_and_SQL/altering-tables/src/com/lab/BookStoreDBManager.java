@@ -1,5 +1,7 @@
 package com.lab;
 
+import org.mariadb.jdbc.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,18 +34,18 @@ public class BookStoreDBManager {
             try {
                 if (conn != null) conn.close();
             } catch (SQLException e) {
-                System.err.println("Main method SQLException : "+e.getMessage());
-            } catch(Exception e){
-                System.err.println("Main method"+ e.getMessage());
+                System.err.println("Main method SQLException : " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Main method" + e.getMessage());
             }
         }
     }
 
     // 1. Establishing Connection:
     private static Connection getDatabaseConnection() {
-        String url = "jdbc:mysql://localhost:3306/";
-        String user = "root";
-        String password = "password";
+        String url = "jdbc:mariadb://localhost:3306";
+        String user = "jdbc_coursera";
+        String password = "";
 
         try {
             return DriverManager.getConnection(url, user, password);
@@ -52,6 +54,7 @@ public class BookStoreDBManager {
             return null;
         }
     }
+
     // 2. Creating the Database:
     public static void createDatabase(Connection conn) {
         try (Statement stmt = conn.createStatement()) {
@@ -61,9 +64,9 @@ public class BookStoreDBManager {
             stmt.executeUpdate(sqlCreateDB);
             System.out.println("Database 'BookstoreDB' created successfully.");
         } catch (SQLException sqlException) {
-            System.out.println("createDatabase SQLException :"+sqlException.getMessage());
+            System.out.println("createDatabase SQLException :" + sqlException.getMessage());
         } catch (Exception e) {
-            System.out.println("createDatabase Exception :"+e.getMessage());
+            System.out.println("createDatabase Exception :" + e.getMessage());
         }
     }
 
@@ -83,9 +86,9 @@ public class BookStoreDBManager {
             stmt.executeUpdate(sqlCreateTable);  // This creates the 'books' table
             System.out.println("Table 'books' created successfully.");
         } catch (SQLException sqlException) {
-            System.out.println("addGenreColumn SQLException :"+sqlException.getMessage());
+            System.out.println("addGenreColumn SQLException :" + sqlException.getMessage());
         } catch (Exception e) {
-            System.out.println(" addGenreColumn Exception :"+e.getMessage());
+            System.out.println(" addGenreColumn Exception :" + e.getMessage());
         }
     }
 
@@ -95,14 +98,15 @@ public class BookStoreDBManager {
             Statement stmt = conn.createStatement();
 
             /*TODO 1: write an SQL query to add a 'genre' column to the 'books' table */
-
+            String alterTable = "ALTER TABLE books ADD COLUMN genre VARCHAR(50)";
             /*TODO 2: execute the SQL query using stmt.executeUpdate() to modify the table */
-
+            stmt.executeUpdate(alterTable);
             /* TODO 3: print a success message once the column has been added */
+            System.out.println("Column 'genre' added successfully.");
         } catch (SQLException sqlException) {
-            System.out.println("addGenreColumn SQLException :"+sqlException.getMessage());
+            System.out.println("addGenreColumn SQLException :" + sqlException.getMessage());
         } catch (Exception e) {
-            System.out.println(" addGenreColumn Exception :"+e.getMessage());
+            System.out.println(" addGenreColumn Exception :" + e.getMessage());
         }
     }
 
@@ -112,14 +116,17 @@ public class BookStoreDBManager {
             Statement stmt = conn.createStatement();
 
             /* TODO 4: write an SQL query to modify the 'price' column precision to DECIMAL(8, 2) */
+            String alterTable = "ALTER TABLE books MODIFY COLUMN price DECIMAL(8, 2)";
 
             /* TODO 5: execute the SQL query using stmt.executeUpdate() to modify the column structure */
+            stmt.executeUpdate(alterTable);
 
             /* TODO 6:print a success message once the 'price' column has been modified */
+            System.out.println("Column 'price' modified successfully.");
         } catch (SQLException sqlException) {
-            System.out.println("modifyPricePrecision SQLException :"+sqlException.getMessage());
+            System.out.println("modifyPricePrecision SQLException :" + sqlException.getMessage());
         } catch (Exception e) {
-            System.out.println("modifyPricePrecision Exception :"+e.getMessage());
+            System.out.println("modifyPricePrecision Exception :" + e.getMessage());
         }
     }
 
@@ -129,17 +136,21 @@ public class BookStoreDBManager {
             Statement stmt = conn.createStatement();
 
             /* TODO 7: write the SQL query to add the 'published_date' column to the 'books' table */
+            String alterTable = "ALTER TABLE books ADD COLUMN published_date DATE";
 
             /* TODO 8: execute the SQL query using stmt.executeUpdate() to modify the table structure */
+            stmt.executeUpdate(alterTable);
             System.out.println("Column 'published_date' added successfully.");
 
             /* TODO 9: insert a book data using stmt.executeUpdate() with the title, author, price, and published date */
+            String insertBook = "INSERT INTO books (title, author, price, published_date) VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 10.99, '1925-04-10')";
+            stmt.executeUpdate(insertBook);
             System.out.println("A book 'The Great Gatsby' added successfully.");
 
         } catch (SQLException sqlException) {
-            System.err.println("addPublishedDateColumn SQLException: "+sqlException.getMessage());
-        }catch (Exception e) {
-            System.err.println("addPublishedDateColumn Exception: "+e.getMessage());
+            System.err.println("addPublishedDateColumn SQLException: " + sqlException.getMessage());
+        } catch (Exception e) {
+            System.err.println("addPublishedDateColumn Exception: " + e.getMessage());
         }
     }
 
@@ -151,10 +162,13 @@ public class BookStoreDBManager {
             /*TODO 10: write the SQL query to drop the 'author' column from the 'books' table */
             /*TODO 11: execute the SQL query using stmt.executeUpdate() to remove the column */
             /*TODO 12: print a confirmation message once the column has been dropped */
+            String alterTable = "ALTER TABLE books DROP COLUMN author";
+            stmt.executeUpdate(alterTable);
+            System.out.println("Column 'author' dropped successfully.");
         } catch (SQLException sqlException) {
-            System.err.println("SQLException :"+sqlException.getMessage());
+            System.err.println("SQLException :" + sqlException.getMessage());
         } catch (Exception e) {
-            System.err.println("Exception :"+e.getMessage());
+            System.err.println("Exception :" + e.getMessage());
         }
     }
 }
