@@ -1,5 +1,7 @@
 package com.lab;
 
+import org.mariadb.jdbc.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -57,6 +59,9 @@ public class BankingSystem {
             // Insert new customer into customers table
             try (PreparedStatement customerStmt = conn.prepareStatement(customerInsertSQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 // TODO 1: insert the customer into the customers table
+                customerStmt.setString(1, customer.getName());
+                customerStmt.setString(2, customer.getAddress());
+                customerStmt.executeUpdate();
                 // Get generated customer ID
                 ResultSet generatedKeys = customerStmt.getGeneratedKeys();
                 int customerId = 0;
@@ -66,6 +71,11 @@ public class BankingSystem {
                 }
 
                 // TODO 2:insert new account into accounts table
+                try (PreparedStatement accountStmt = conn.prepareStatement(accountInsertSQL)) {
+                    accountStmt.setInt(1, customerId);
+                    accountStmt.setDouble(2, initialBalance);
+                    accountStmt.executeUpdate();
+                }
 
                 // Commit the transaction
                 conn.commit();
@@ -73,6 +83,8 @@ public class BankingSystem {
                 System.out.println("Account created for " + customer.getName() + " successfully.");
             } catch (SQLException e) {
                 // TODO 3: if any error occurs, rollback the transaction
+                conn.rollback();
+                System.err.println("SQLException: " + e.getMessage());
             }
 
         } catch (SQLException e) {
@@ -83,17 +95,25 @@ public class BankingSystem {
     // Task 2: Update customer details
     public static void updateCustomerDetails(Connection conn, Customer customer) {
         // TODO 4: write the SQL UPDATE query to change the customer's address in the customers table
-        String updateSQL = "REPLACE_HERE_UPDATE_QUERY";
+        String updateSQL = "UPDATE customers SET address = ? WHERE id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
 
             // TODO 5: use the customer's ID to locate the customer record in the database
+            stmt.setString(1, customer.getAddress());
+            stmt.setInt(2, customer.getId());
             /* TODO 6: run the SQL update using executeUpdate()
              * save the result in a variable called rowsAffected.
              * display message if the customer's details were successfully updated.
              *  If at least one row is affected, show a success message "customer name details updated successfully."
              *   Otherwise, let them know the "customer wasn't found".
              */
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println(customer.getName() + " details updated successfully.");
+            } else {
+                System.out.println("Customer not found.");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,14 +123,24 @@ public class BankingSystem {
     // Task 3: Delete a customer account
     public static void deleteCustomerAccount(Connection conn, int accountId) {
         // TODO 7: Write SQL DELETE queries to remove the account from the accounts table and, optionally, the customer from the customers table
-        String deleteAccountSQL = "REPLACE_HERE_DELETE_QUERY_ACCOUNT";
-        String deleteCustomerSQL = "REPLACE_HERE_DELETE_QUERY_CUSTOMER";
+        String deleteAccountSQL = "DELETE FROM accounts WHERE id = ?";
+        String deleteCustomerSQL = "DELETE FROM customers WHERE id = ?";
 
         try {
             // TODO 8: retrieve the customer ID associated with this account
             // TODO 9: delete the account
             // TODO 10: if the customer has no other accounts, delete the customer from the customers table
-
+            int customerId = getCustomerIdFromAccountId(conn, accountId);
+            try (PreparedStatement stmt = conn.prepareStatement(deleteAccountSQL)) {
+                stmt.setInt(1, accountId);
+                stmt.executeUpdate();
+            }
+            if (customerId > 0 && !hasOtherAccounts(conn, customerId)) {
+                try (PreparedStatement stmt = conn.prepareStatement(deleteCustomerSQL)) {
+                    stmt.setInt(1, customerId);
+                    stmt.executeUpdate();
+                }
+            }
             // Commit the transaction
             conn.commit();
             System.out.println("Bank account belong to " + customerId + " deleted successfully.");
@@ -122,7 +152,7 @@ public class BankingSystem {
     // Task 4: View all customers and their account details
     public static void viewAllCustomers(Connection conn) {
         // TODO 11: write an SQL SELECT query to fetch customer names, addresses, account IDs, and balances by joining the customers and accounts tables
-        String query = "REPLACE_SELECT_QUERY";
+        String query = "SELECT customers.name, customers.address, accounts.id, accounts.balance FROM customers JOIN accounts ON customers.id = accounts.customer_id";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -135,6 +165,9 @@ public class BankingSystem {
              * fetch customer balance
              * display details in this format "Customer: %s, Address: %s, Account: %d, Balance: %.2f"
              */
+            while (rs.next()){
+                System.out.println("Customer: " + rs.getString("name") + ", Address: " + rs.getString("address") + ", Account: " + rs.getInt("id") + ", Balance: " + rs.getDouble("balance"));
+            }
 
         } catch (SQLException e) {
             System.err.println("SQLException :" + e.getMessage());
