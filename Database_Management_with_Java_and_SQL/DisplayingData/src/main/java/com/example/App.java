@@ -37,6 +37,7 @@ public class App extends Application {
     /* TODO 13: Open App.java code.
     Call Database.getConnection() method
     before calling launch() */
+            Database.getConnection();
             System.out.println("connected");
         } catch (SQLException e) {
             System.out.println("not connected");

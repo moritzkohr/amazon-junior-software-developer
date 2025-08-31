@@ -40,10 +40,10 @@
             <children>
 
                 <!-- Navigation Buttons -->
-                <Button fx:id="prevButton" onAction="#handlePrevRecord" text="Previous" />
-                <Button fx:id="nextButton" onAction="#handleNextRecord" text="Next" />
+                <Button fx:id="prevButton" onAction="#prevRecord" text="Previous" />
+                <Button fx:id="nextButton" onAction="#nextRecord" text="Next" />
             </children>
         </HBox>
-        <Button mnemonicParsing="false" text="Button" />
+        <Button fx:id="showVBoxBtn" mnemonicParsing="false" onAction="#switchVScene" text="Show VBox Layout" />
     </children>
 </VBox>
