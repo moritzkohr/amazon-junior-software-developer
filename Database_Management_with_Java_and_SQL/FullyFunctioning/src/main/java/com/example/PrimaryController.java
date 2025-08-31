@@ -93,6 +93,7 @@ public class PrimaryController {
 
         ObservableList<User> userList = FXCollections.observableArrayList();
         /*TODO 5 String query =  // SQL Query to select all fields from user table;*/
+        String query = "SELECT * FROM user";
 
 
         try (Connection conn = Database.getConnection();
@@ -103,6 +104,11 @@ public class PrimaryController {
 /*TODO 6:  Read all records in a while loop.
 Fetch the field values in the variables userId, fName, lName and points.
 Print the variables with System.out.println() */
+                int userId = rs.getInt("user_id");
+                String fName = rs.getString("first_name");
+                String lName = rs.getString("last_name");
+                int points = rs.getInt("reward_points");
+                System.out.println("ID: " + userId + "fName: " + fName + "lName: " + lName + "points: " + points);
 
                 /*TODO 7: Create a new User object with these values and add in userList ObservableList.*/
                 userList.add(new User(userId, fName, lName, points));
@@ -131,6 +137,8 @@ the fName attribute of the User object. Use the setText() method of TextField cl
         fNameField.setText(selectedUser.getfName());
 /*TODO 18:  similarly, set the text fields - lNameField, and pointsField -
 with the corresponding attributes of the User object.*/
+        lNameField.setText(selectedUser.getlName());
+        pointsField.setText(String.valueOf(selectedUser.getPoints()));
     }
 
 
@@ -140,10 +148,12 @@ with the corresponding attributes of the User object.*/
 
   /*TODO 12:    Populate these variables with the data entered by the user in the text fields.
   Use getText() method of TextField class*/
+        String newFName = fNameField.getText();
+        String newLName = lNameField.getText();
+        int newPoints = Integer.parseInt(pointsField.getText());
 
         /*TODO 13: Construct a parameterized query string for INSERT operation, and create a PreparedStatement using it.*/
-
-
+        String query = "INSERT INTO user (first_name, last_name, reward_points) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -156,8 +166,9 @@ of PreparedStatement class and execute the query.*/
             pstmt.executeUpdate();
 
             /*TODO 15:     call refreshTable() method.*/
+            refreshTable();
         } catch (SQLException e) {
-            System.out.println("error:"+e.getMessage());
+            System.out.println("error:" + e.getMessage());
 
         }
 
@@ -167,12 +178,19 @@ of PreparedStatement class and execute the query.*/
     void updateUser(ActionEvent event) {
 /*TODO 19: Declare newFName, newLName variables of int type
 and newpoints variable of int type.*/
+        String newFName;
+        String newLName;
+        int newPoints;
 
 /*TODO 19: Call the getSelectedItem() method,
 obtain the User object corresponding to the row clicked on.*/
+        User selectedUser = tableView.getSelectionModel().getSelectedItem();
 
 /*TODO 21: Assign the values of the text fields - fNameField, lNameField and pointField
 to newFName, newLName and newpoints variables.*/
+        newFName = fNameField.getText();
+        newLName = lNameField.getText();
+        newPoints = Integer.parseInt(pointsField.getText());
 
         /*TODO 22: Construct a parameterized query string for UPDATE operation. */
 
@@ -182,13 +200,19 @@ to newFName, newLName and newpoints variables.*/
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 /*TODO 23:: Perform parameter substitution and execute the query to update the
 selected row in the TableView as done in TODO 19*/
+            pstmt.setString(1, newFName);
+            pstmt.setString(2, newLName);
+            pstmt.setInt(3, newPoints);
+            pstmt.setInt(4, selectedUser.getUserId());
+            pstmt.executeUpdate();
 
 
             refreshTable();
         } catch (SQLException e) {
-            System.out.println("error:"+e.getMessage());
+            System.out.println("error:" + e.getMessage());
         }
     }
+
     @FXML
     void deleteUser(ActionEvent event) {
 /*TODO 24: Call the getSelectedItem() method,
@@ -197,16 +221,18 @@ obtain the User object corresponding to the row clicked on.*/
         User selectedUser = tableView.getSelectionModel().getSelectedItem();
 
         /*TODO 25: Construct a parameterized query string for DELETE operation.*/
+        String query = "DELETE FROM user WHERE user_id = ?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 /*TODO 26: Perform parameter substitution and execute the
 query to delete the selected row in the TableView as in TODO 19*/
+            pstmt.setInt(1, selectedUser.getUserId());
 
             pstmt.executeUpdate();
             refreshTable();
         } catch (SQLException e) {
-            System.out.println("error:"+e.getMessage());
+            System.out.println("error:" + e.getMessage());
 
         }
     }

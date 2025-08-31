@@ -32,6 +32,7 @@ public class App extends Application {
             /*TODO 1: Open App.java code.
             Call Database.getConnection() method in main() method, before calling launch().
             Make sure to put this call inside the try block and handle the SQLException*/
+            Database.getConnection();
             System.out.println("connected");
         } catch (SQLException e) {
             System.out.println("not connected");
