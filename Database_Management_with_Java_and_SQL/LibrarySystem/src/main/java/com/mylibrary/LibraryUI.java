@@ -1,6 +1,6 @@
 package com.mylibrary;
 
-
+import org.mariadb.jdbc.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -72,6 +73,7 @@ public class LibraryUI extends Application {
         availableColumn.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 
         // TODO 9: Add the columns to the table view using the getColumns().addAll method. You should start with  “tableView.getColumns().addAll…“
+        tableView.getColumns().addAll(idColumn, titleColumn, authorColumn, availableColumn);
 
 
         // Buttons for actions
@@ -119,7 +121,7 @@ public class LibraryUI extends Application {
 
 // TODO 11: Load all books from the Books table and display them in the TableView. To achieve this, define a String variable to hold the SQL query that selects all records from the Books table. Name the variable query.
 
-        String query = " ";
+        String query = "SELECT * FROM Books";
 
         try (Connection conn = connect();
              Statement stmt = conn.createStatement();
@@ -159,6 +161,7 @@ public class LibraryUI extends Application {
         for (Book book : loadAllBooks()) {
             if (book.getTitle().toLowerCase().contains(searchText)) {
                 // TODO 13: After checking if the book's title contains the search text, if so, add the book to the list of filtered books.
+                filteredBooks.add(book);
             }
         }
 
@@ -194,7 +197,7 @@ public class LibraryUI extends Application {
             pstmt.setBoolean(3, available);
 
             // TODO 12: Complete the insertBook method by adding a line of code to execute the prepared statement, which will insert the new book record into the Books table. Use the executeUpdate() method to perform this operation. This method sends the SQL command to the database and performs the operation specified. For instance, it can insert a new row, update existing rows, or delete rows from a table.
-
+            pstmt.executeUpdate();
             showAlert(Alert.AlertType.INFORMATION, "Success", "Book inserted successfully.");
             clearInputFields();
             refreshTable();
@@ -208,10 +211,10 @@ public class LibraryUI extends Application {
     private void updateBook() {
 
         // TODO 14: Retrieve the selected book using tableView.getSelectionModel().getSelectedItem() and assign it to Book selectedBook.
+        Book selectedBook = tableView.getSelectionModel().getSelectedItem();
 
         // Remember to remove the /* */ comment section after completing your code for proper compilation.
 
-/*
         if (selectedBook == null) {
             showAlert(Alert.AlertType.ERROR, "Selection Error", "No book selected for update.");
             return;
@@ -244,7 +247,6 @@ public class LibraryUI extends Application {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to update the book.");
         }
-             */
     }
 
     // Method to delete a selected book
@@ -257,7 +259,7 @@ public class LibraryUI extends Application {
         }
         // TODO 15: Inside "------" define a SQL query to delete a book from the Books table.
 
-        String query = "--------";
+        String query = "DELETE FROM Books WHERE book_id =?";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -275,12 +277,13 @@ public class LibraryUI extends Application {
     // Method to sort books by title
     private void sortBooks() {
 // TODO 16: Retrieve the list of books from the TableView with tableView.getItems() and assign it to ObservableList<Book> books. Then, the method uses FXCollections.sort() with a case-insensitive Comparator to sort the list by title.
+        ObservableList<Book> books = tableView.getItems();
 
         // Remember to remove the /* */ comment section after completing your code for proper compilation.
 
-        /*
+
         FXCollections.sort(books, Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER));
-        */
+
     }
 
     // Method to display alert messages
@@ -301,9 +304,9 @@ public class LibraryUI extends Application {
     // Method to connect to the database
     private Connection connect() throws SQLException {
         // TODO 10: Complete the database connection with the correct user name and password.
-        String url = "jdbc:mysql://localhost:3306/LibraryDB";
-        String user = "______";
-        String password = "________";
+        String url = "jdbc:mariadb://localhost:3306/LibraryDB";
+        String user = "jdbc_coursera";
+        String password = "";
         return DriverManager.getConnection(url, user, password);
     }
 }
