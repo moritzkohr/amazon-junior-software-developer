@@ -8,13 +8,34 @@
 <!--TODO 16: add an anchor tag assign href to the #food and Food Items as the text-->
 <!--TODO 17: add an anchor tag assign href to the #electronics and Electronics Items as the text-->
 <h1>Shopping Categories</h1>
-
+<nav>
+    <a href="#food">Food Items</a>
+    <a href="#electronics">Electronics Items</a>
+</nav>
 
 <!--TODO 1: open the shoppinglist.html in VS code editor-->
 <!--TODO 2: Add <h2> tag with id="food" and Food Items as text-->
 <!--TODO 3: Add an unordered list of food items-->
+<h2 id="food">Food Items</h2>
+<ul>
+    <li>Fruits</li>
+    <ul>
+        <li>Apples</li>
+        <li>Mangoes</li>
+        <li>Bananas</li>
+    </ul>
+    <li>Vegetables</li>
+    <li>Bread</li>
+    <li>Dairy</li>
+</ul>
 <!--TODO 4: Add <h2> tag with id="electronics" and Electronics Items as text-->
 <!--TODO 5: Add another unordered list of Electronics items-->
+<h2 id="electronics">Electronics Items</h2>
+<ul>
+    <li>Smartphone</li>
+    <li>Headphones</li>
+    <li>Television</li>
+</ul>
 
 <!--TODO 6: Add a nested unordered list under Fruits-->
 
@@ -24,12 +45,19 @@
 <!--TODO 9: Inside then <p> tag, use suitable description text about Apples-->
 <!--TODO 10: add another <h3> tag with tv as id and About Television as the text-->
 <!--TODO 11: Inside then <p> tag, use suitable description text about Television-->
+<h2>Item Descriptions</h2>
+<h3 id="apples">About Apples</h3>
+<p>Apples are crisp, sweet-tart fruits from the Malus domestica tree, enjoyed fresh or in a wide variety of dishes. Rich in fiber, vitamin C, and antioxidants, they support heart health and digestion. With hundreds of varieties - from tart Granny Smith to sweet Honeycrisp - apples offer diverse flavors and textures year-round.</p>
+<h3 id="tv">About Television</h3>
+<p>A television is an electronic device that receives audio-visual signals to display moving images and sound. Used for entertainment, news, education, and streaming, modern TVs feature high-resolution screens (HD, 4K, 8K), smart apps, and various display technologies like LED, OLED, and QLED.</p>
 
 
 <!--TODO 12: To link Apples item in Fruits with the description, insert a hyperlink to refer to the Apples description-->
-<li><a href="#Apples">Apples</a></li>
+<li><a href="#apples">Apples</a></li>
 <!--TODO 13: similarly, to link Television item in with the description, insert a hyperlink to refer to the Television description-->
 <!--TODO 14: At the bottom of the page, insert an internal hyperlink to the top of page with #top-->
+<li><a href="#tv">Television</a> </li>
+<li><a href="#top">Top</a></li>
 
 </body>
 </html>
