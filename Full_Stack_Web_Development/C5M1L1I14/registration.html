@@ -4,11 +4,63 @@
     <title>Registration Page</title>
 </head>
 <body>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="categories.html">Categories</a>
+</nav>
+<form action="#" method="post">
+    <p>
+        <label for = "name">Enter Your Name: </label><br/>
+        <input type = "text" id = "name">
+    </p>
+    <p>
+        <label for="gender">Gender:</label>
+        <input type="radio" id="Male" name="gender" value="Male">
+        <label for="Male">Male</label>
+        <input type="radio" id="Female" name="gender" value="Female">
+        <label for="Female">Female</label>
+    </p>
+    <p>
+        <label for="userID">User Name:</label>
+        <input type="text" id="userID">
+    </p>
+    <p>
+        <label for="password">Password:</label>
+        <input type="password" id="password">
+    </p>
+    <p>
+        <label for="email">Email:</label>
+        <input type="email" id="email">
+    </p>
+    <p>
+        <label for="address">Address:</label>
+        <textarea id="address" rows="5" cols="30"></textarea>
+    </p>
+    <p>
+        <h4>Shopping Interests:</h4>
+        <label for="ele">Electronics</label>
+        <input type="checkbox" id="ele" name="ele" value="ele">
+        <label for="fashion">Fashion</label>
+        <input type="checkbox" id="fashion" name="fashion" value="fashion">
+        <label for="books">Books</label>
+        <input type="checkbox" id="books" name="books" value="books">
+    </p>
+    <p>
+        <label for="category">Select the Category:</label>
+        <select id="category" name="category">
+            <option value="Premium">Premium</option>
+            <option value="Regular">Regular</option>
+        </select>
+    </p>
+    <p>
+        <input type="submit" value="submit">
+    </p>
+</form>
 <!--TODO 26: Above the <form> tag, add the <nav> tag. The links to
     other pages are to be added inside the <nav> element.-->
 <!--TODO 28: Inside the anchor tag <a> set the href attribute to establish
-    hyperlink with index.html - the home page of the website.-->
-<a href="index.html">Home</a> |
+    hyperlink with index.html - the home page of the website.-->|
 <!--TODO 29: Similarly, create a hyperlink for the login page.-->
 <!--TODO 30: Similarly, create hyperlink for the categories page.-->
 
@@ -24,10 +76,7 @@ Add a label tag before the text field, use "name" as value of for attribute.
 Put the label and the text field in a <p> tag.
 -->
 
-<p>
-    <label for = "name">Enter Your Name: </label><br/>
-    <input type = "text" id = "name">
-</p>
+
 <p>
     <!--TODO 11: Below the text field for the user's name, insert two <input> elements with type="radio". Set the name attribute of the both radio buttons to "gender"-->
     <!--TODO 12: For the first radio element, set the id and value as "Male".-->
@@ -88,6 +137,7 @@ as the caption.-->
 <!--TODO 31: Just before the </body> tag, add the <footer> element.
     Use the HTML entity "&copy;" to render the copyright symbol,
     add "All rights reserved" along with it inside the <footer> element. -->
+<footer>&copy; All rights reserved</footer>
 </body>
 </html>
 
