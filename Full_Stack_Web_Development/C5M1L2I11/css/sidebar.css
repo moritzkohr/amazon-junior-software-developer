@@ -1,0 +1,32 @@
+/* Sidebar for mobile view */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0056b3;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    /* TODO 2: Set the display property to hide the sidebar by default. */
+
+}
+
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    text-align: left;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #ffd700;
+}
+
+/* TODO 3: Add a media query for screens under 768px to hide the <nav> element and display the <div class="sidebar">. */
+

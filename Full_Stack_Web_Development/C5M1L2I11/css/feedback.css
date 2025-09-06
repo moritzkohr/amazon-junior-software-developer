@@ -1,0 +1,91 @@
+.submit-button {
+    background-color: #28a745; /* Green background for submit button */
+    color: white;              /* White text */
+    padding: 12px 20px;        /* Padding for better clickability */
+    border: none;              /* Remove default borders */
+    border-radius: 5px;        /* Slight rounding of corners */
+    font-size: 16px;           /* Adjust font size */
+    cursor: pointer;           /* Change cursor to pointer */
+}
+
+.submit-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.reset-button {
+    background-color: red;     /* Red background for reset button */
+    color: white;              /* White text */
+    padding: 12px 20px;        /* Padding for better clickability */
+    border: none;              /* Remove default borders */
+    border-radius: 5px;        /* Slight rounding of corners */
+    font-size: 16px;           /* Adjust font size */
+    cursor: pointer;           /* Change cursor to pointer */
+}
+
+.reset-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Flexbox container for form layout */
+.flex-container {
+
+    /* TODO 4: Set the display property to flex and the flex-direction property to column. */
+
+
+    gap: 15px; /* Spacing between form elements */
+    width: 50%;
+    margin: 0 auto; /* Center the form */
+    padding: 20px;
+    border: 1px solid #007bff;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.button-container {
+
+    /* TODO 5: Set the display property to flex and the justify-content to space-between. */
+
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+    /* width: 100%; */
+    padding: 12px 15px;
+    /* Extra padding for potential icon placement */
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    /* Rounded corners */
+    box-sizing: border-box;
+
+    /* TODO 2 - add a light gray background color with #f3f3f3 color code */
+    background-color: #f3f3f3;
+    /* Light background color */
+    font-size: 16px;
+}
+
+@keyframes slideIn {
+    from {
+
+        /* TODO 6: Add the transform property with translateX(-100%) */
+
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+form {
+
+    /* TODO 7: Add the animation property to the form to apply the slideIn keyframes, setting it to slideIn 0.8s ease-out. */
+
+}

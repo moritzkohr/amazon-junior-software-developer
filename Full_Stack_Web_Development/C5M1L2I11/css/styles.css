@@ -1,0 +1,23 @@
+html, body {
+    height: 100%;
+}
+
+h3 {
+    color: green;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+
+
+/* Footer Section */
+footer {
+    background-color: #0056b3;
+    /* Dark Blue */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
