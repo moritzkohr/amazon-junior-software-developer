@@ -58,6 +58,7 @@ th {
 
 td {
     /* TODO 3: Add 10px of space inside each table cell */
+    padding: 10px;
     border: 1px solid #ddd;
 }
 
@@ -66,10 +67,12 @@ th {
     padding: 12px 15px;
 
     /* TODO 4 - Add white text for better contrast */
-
+    color: white;
     /* TODO 5 - Align header text to the left */
+    text-align: left;
 
     /* TODO 6 - Make the text bold */
+    font-weight: bold;
 
 }
 
