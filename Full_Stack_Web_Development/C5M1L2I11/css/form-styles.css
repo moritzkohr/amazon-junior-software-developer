@@ -31,8 +31,6 @@ textarea {
     border-radius: 25px;
     /* Rounded corners */
     box-sizing: border-box;
-
-    /* TODO 2 - add a light gray background color with #f3f3f3 color code */
     background-color: #f3f3f3;
     /* Light background color */
     font-size: 16px;

@@ -30,6 +30,8 @@
 .flex-container {
 
     /* TODO 4: Set the display property to flex and the flex-direction property to column. */
+    display: flex;
+    flex-direction: column;
 
 
     gap: 15px; /* Spacing between form elements */
@@ -44,7 +46,8 @@
 .button-container {
 
     /* TODO 5: Set the display property to flex and the justify-content to space-between. */
-
+    display: flex;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -74,6 +77,7 @@ textarea {
     from {
 
         /* TODO 6: Add the transform property with translateX(-100%) */
+        transform: translateX(-100%);
 
         opacity: 0;
     }
@@ -87,5 +91,6 @@ textarea {
 form {
 
     /* TODO 7: Add the animation property to the form to apply the slideIn keyframes, setting it to slideIn 0.8s ease-out. */
+    animation: slideIn 0.8s ease-out;
 
 }

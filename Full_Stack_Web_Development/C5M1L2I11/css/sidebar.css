@@ -10,6 +10,7 @@
     transition: 0.5s;
     padding-top: 60px;
     /* TODO 2: Set the display property to hide the sidebar by default. */
+    display: none;
 
 }
 
@@ -29,4 +30,12 @@
 }
 
 /* TODO 3: Add a media query for screens under 768px to hide the <nav> element and display the <div class="sidebar">. */
+@media screen and (max-width: 768px) {
+    nav {
+        display: none;
+    }
+    .sidebar {
+        display: block;
+    }
+}
 
