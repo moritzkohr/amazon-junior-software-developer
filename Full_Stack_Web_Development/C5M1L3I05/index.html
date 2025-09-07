@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fancy Product Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body onload="initPage()">
+<header>
+    <h1>Product Registration</h1>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Registration</a></li>
+            <li><a href="#contact">Login</a></li>
+            <li><a href="#products">Products</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="form-section">
+    <h2>Register Your Product</h2>
+    <form id="productForm" class="three-column-grid">
+        <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName">
+            <div id="productNameError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="productCategory">Product Category:</label>
+            <!-- TODO 1: Add onclick event in the drop down to call showProductImage function -->
+            <select id="productCategory" name="productCategory" onclick="showProductImage()">
+                <option value="">Select Category</option>
+                <option value="phone">Phone</option>
+                <option value="laptop">Laptop</option>
+                <option value="camera">Camera</option>
+                <option value="headphones">Headphones</option>
+                <option value="watch">Smart Watch</option>
+            </select>
+            <div id="productCategoryError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="productID">Product ID:</label>
+            <input type="text" id="productID" name="productID">
+            <div id="productIDError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="purchaseDate">Purchase Date:</label>
+            <input type="date" id="purchaseDate" name="purchaseDate">
+            <div id="purchaseDateError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="warranty">Warranty Period (Years):</label>
+            <input type="number" id="warranty" name="warranty" min="1" max="5">
+            <div id="warrantyError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price ($):</label>
+            <input type="number" id="price" name="price" step="0.01">
+            <div id="priceError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="vendor">Vendor Name:</label>
+            <input type="text" id="vendor" name="vendor">
+            <div id="vendorError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Customer Email:</label>
+            <input type="email" id="email" name="email">
+            <div id="emailError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Customer Phone Number:</label>
+            <input type="number" id="phoneNumber" name="phoneNumber">
+            <div id="phoneNumberError" class="error-message"></div>
+        </div>
+
+        <div id="productImageSection" style="display: none;">
+            <h4>Selected Product</h4>
+            <img id="productImage" src="" alt="Product Image">
+        </div>
+        <br>
+        <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="thanksMessage" style="display: none;">
+        <h3>Thank you for registering your product!</h3>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Enhanced Shopping Cart</p>
+</footer>
+</body>
+</html>
