@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- TODO 1: Set the title of the page to "Product List" -->
+    <title>Product List</title>
+
+    <!-- TODO 2: Add a <link> tag to include the product-styles.css from the css folder -->
+    <link rel="stylesheet" href="/css/product-styles.css">
+</head>
+<body>
+<!--TODO 3: Add a heading tag with the text "Available Products"-->
+<h1>Available Products</h1>
+<!--TODO 4: Add a table with headers for Product ID, Name, Description, and Price.-->
+<table>
+    <thead>
+    <tr>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--TODO 5: Use Thymeleaf syntax with tr tag to iterate over the "products" list passed by the controller-->
+    <tr th:each="product : ${products}">
+        <!--TODO 6: Add a <td> tag for each product attribute to display the product ID, name, description, and price-->
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
