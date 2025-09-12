@@ -15,6 +15,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
+            <!--            TODO 8: add a column to the table in HTML view homepage-->
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +24,12 @@
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
+<!--            TODO 9: in the Table data tag create an Update Button as a hyperlink in the thyme leaf tag.-->
+            <td>
+                <a th:href="@{/showFormForUpdate/{id}(id=${product.id})}" class="button">Update</a>
+                <!--TODO 18: On the HTML homepage, add a Delete button. Create an additional hyperlink next to the update button within the table tags and label it as DELETE-->
+                <a th:href="@{/deleteProduct/{id}(id=${product.id})}" class="button">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
