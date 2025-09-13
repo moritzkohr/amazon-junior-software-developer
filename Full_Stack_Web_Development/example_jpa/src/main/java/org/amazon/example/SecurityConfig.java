@@ -25,10 +25,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 .requestMatchers("/register", "/login").permitAll()  // Allow public access to these pages
-                //TODO 3: Only ADMIN can access /admin/* url
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                //TODO 4: Only USER can access /user/* url
                 .requestMatchers("/user/**").hasRole("USER")
+                //TODO 16: Modify the code here to accept Basic Authentication for /products/** endpoints without redirection to the login page.
+                .requestMatchers("/products/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()                         // Secure all other pages
                 .and()
                 .formLogin()                                             // Enable form login
