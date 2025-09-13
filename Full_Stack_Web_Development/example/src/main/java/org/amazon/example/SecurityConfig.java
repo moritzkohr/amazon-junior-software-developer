@@ -2,6 +2,7 @@ package org.amazon.example;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final UserService userService;
@@ -24,7 +26,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/register", "/login").permitAll()  // Allow public access to these pages
                 //TODO 3: Only ADMIN can access /admin/* url
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 //TODO 4: Only USER can access /user/* url
+                .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()                         // Secure all other pages
                 .and()
                 .formLogin()                                             // Enable form login

@@ -18,8 +18,12 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
 
         //TODO 1:  Add a default admin user with username admin, password admin123 and role ADMIN
+        User admin = new User("admin","admin123","ADMIN");
+        registerUser(admin);
 
         //TODO 2: Add a default regular user with username user, password user123 and role USER;
+        User defaultUser = new User("user","user123","USER");
+        registerUser(defaultUser);
     }
 
     public void registerUser(User user) {
