@@ -11,19 +11,36 @@ window.onload = function () {
 // TODO 4: create an async function fetchProductFromAPI() that fetches a single product by ID from the backend API
 async function fetchProductFromAPI(productId) {
     try {
-
+        const apiResponse = await fetch(`${PRODUCTS_API_URL}/${productId}`)
+        if (!apiResponse.ok) {
+            alert(`Error fetching product with ${productId} from API`)
+        }
         await apiResponse.json().then(
-
+            product => {
+                displayProduct(product)
+            }
         )
     } catch (error) {
-
+        alert("Error fetching product from API")
     }
 }
 
 // TODO 5: create a function displayProduct() that displays the product details with edit and delete buttons
 function displayProduct(product) {
     const productContainer = document.getElementById("productDetailsContainer")
-    productContainer.innerHTML = ""
+    productContainer.innerHTML = "" +
+        "<div class=\"product-card\">\n" +
+        "<img src=\"${product.image}\" alt=\"${product.title}\"></img>\n" +
+        "<h2>${product.title}</h2>\n" +
+        "<p><strong>Price:</strong> $ ${product.price.toFixed(2)}</p>\n" +
+        "<p><strong>Description:</strong> ${product.description}</p>\n" +
+        "<p><strong>Category:</strong> ${product.category}</p>\n" +
+        "<p><strong>Rating:</strong> ${product.rating.rate} (Count: ${product.rating.count})</p>\n"+
+        "<section class='product-card-buttons-container'>" +
+        "<button class='product-card-button edit-product-button' onclick='editProductById(${product.id})' type='button'>✏️</button>"+
+        "<button class=\"product-card-button delete-product-button\" onclick=\"deleteProductById(${product.id})\" type=\"button\">🗑️</button>"+
+        "</section>"+
+        "</div>"
 
     const productElement = document.createElement("div")
     productElement.classList.add("product-card")
