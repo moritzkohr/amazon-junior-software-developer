@@ -5,22 +5,13 @@ let filteredProducts = []; // Add this to store filtered products
 
 async function addToCart(productId) {
   // TODO 13: In the addToCart() function, retrieve the user’s userID from sessionStorage using JSON.parse(sessionStorage.getItem("user"))
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  const userId = user.userID;
 
   // TODO 14: Create an object to represent the cart item, including userId and productId
-  const cart = {
-    userId: userId,
-    productId: productId
-  };
 
+
+  // TODO 15: Send a POST request to CART_API_URL to add the item to the cart
   try {
-    // TODO 15: Send a POST request to CART_API_URL to add the item to the cart
-    const response = await fetch(`${CART_API_URL}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cart)
-    });
+
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -30,8 +21,7 @@ async function addToCart(productId) {
     alert("Product added to cart!");
   } catch (error) {
     // TODO 16: Display an error alert using ${error.message} and log it to console
-    console.error("Error:", error);
-    alert(`Error adding to cart: ${error.message}`);
+
   }
 }
 
@@ -43,26 +33,23 @@ window.addEventListener("load", () => {
 
   fetchProducts();
 
-  // TODO 9: Add an event listener to the searchForm to handle form submissions.
-  document.getElementById("searchForm").addEventListener("submit", (event) => {
-    // Prevent the default submission behavior
-    event.preventDefault();
+  // TODO 9: Add an event listener to the searchForm to handle form submissions. Prevent the default submission behavior
+  document.getElementById("").addEventListener("", (event) => {
+
 
     // TODO 10: Retrieve the search query from the searchInput field, and convert it to lowercase for a case-insensitive search
-    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
 
     // TODO 11: Filter products to include only items where the title or category matches the query
     if (query) {
-      filteredProducts = products.filter(product =>
-        product.title.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query)
-      );
+
     } else {
       // If query is empty, show all products
       filteredProducts = products;
     }
+
     // TODO 12: Pass the filtered products list to renderProducts() to display the search results
-    renderProducts(filteredProducts);
+
   });
 });
 
