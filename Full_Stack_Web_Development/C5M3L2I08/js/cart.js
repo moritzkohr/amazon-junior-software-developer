@@ -86,7 +86,8 @@ function renderCartItems(cartItems) {
 
 async function removeFromCart(productId) {
     // TODO 17: In removeFromCart, retrieve the userID from sessionStorage using JSON.parse(sessionStorage.getItem("user"))
-
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userId = user ? user.userID : null;
 
     if (!userId) {
         alert("User not logged in");
@@ -95,10 +96,12 @@ async function removeFromCart(productId) {
 
     try {
         // TODO 18: Send a DELETE request to ${CART_API_URL}/user/${userId}/product/${productId} to remove the item
-
+        const response = await fetch(`${CART_API_URL}/user/${userId}/product/${productId}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Failed to remove item from cart");
 
         // TODO 19: Display a success message when the item is removed and refresh the cart items by calling fetchCartItems()
-
+        alert("Item removed from cart");
+        fetchCartItems();
 
     } catch (error) {
         console.error("Error removing item from cart:", error);
