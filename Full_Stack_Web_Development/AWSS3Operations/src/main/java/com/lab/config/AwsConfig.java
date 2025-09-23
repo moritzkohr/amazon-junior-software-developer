@@ -11,12 +11,13 @@ public class AwsConfig {
     @Bean
     public S3Client s3Client() {
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(
-                "REPLACE_ACCESS_KEY", // replace with your actual access key
-                "REPLACE_SECRET_KEY_HERE"  // replace with your actual secret key
+                "", // replace with your actual access key
+                ""  // replace with your actual secret key
+                //Keys deleted after testing, for obvious reasons
         );
 
         return S3Client.builder()
-                .region(Region.of("eu-west-1")) // replace with your region,
+                .region(Region.of("eu-central-1")) // replace with your region,
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .build();
     }

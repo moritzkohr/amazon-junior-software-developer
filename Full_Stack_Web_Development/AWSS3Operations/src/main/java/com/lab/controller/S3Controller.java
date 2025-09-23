@@ -25,6 +25,7 @@ public class S3Controller {
     /* TODO 1: define a POST HTTP endpoint for uploading files,
      *  set the endpoint URL to "/upload" so that this function is triggered when a POST request is made to /upload
      */
+    @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("bucketName") String bucketName) {
         try {
             // create a temporary file path in the system's temp directory to hold the uploaded file temporarily
@@ -40,6 +41,7 @@ public class S3Controller {
              *   this method will return a result string, often containing a URL or confirmation message from S3 if the upload is successful.
              * TODO 3:store this response in a variable called 'result' so it can be passed in the response, send back to the client.
              */
+            String result = s3Service.uploadFile(bucketName, file.getOriginalFilename(), tempFile);
             // Return a success response with the result of the upload
             return ResponseEntity.ok(result);
         } catch (Exception e) {
@@ -52,6 +54,7 @@ public class S3Controller {
      *   the URL pattern "/download/{bucketName}/{fileName}" captures the bucket name and
      *    file name from the URL path to locate the file.
      */
+    @GetMapping("/download/{bucketName}/{fileName}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String bucketName, @PathVariable String fileName) {
         try {
             /* TODO 5:use the s3Service to download the file from the specified S3 bucket
@@ -62,6 +65,7 @@ public class S3Controller {
             /* TODO 6: store the stream in a variable called s3Object
              *  so you can easily access and work with the file data
              * */
+            ResponseInputStream<GetObjectResponse> s3Object = s3Service.downloadFile(bucketName, fileName);
 
             /* read the contents of the file from the InputStream into a byte array
              *   use the readAllBytes() method to read the entire content of the file into a byte array (fileBytes)
@@ -94,11 +98,13 @@ public class S3Controller {
      *  for DELETE requests at "/delete/{bucketName}/{fileName}" and
      *  uses {bucketName} and {fileName} from the URL
      * */
+    @DeleteMapping("/delete/{bucketName}/{fileName}")
     public ResponseEntity<String> deleteFile(@PathVariable String bucketName, @PathVariable String fileName) {
         try {
             /* TODO 8: call s3Service to delete the file from the specified S3 bucket
              *   pass in the bucket name and file name so that s3Service can locate and delete the file
              * */
+            String result = s3Service.deleteFile(bucketName, fileName);
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {
