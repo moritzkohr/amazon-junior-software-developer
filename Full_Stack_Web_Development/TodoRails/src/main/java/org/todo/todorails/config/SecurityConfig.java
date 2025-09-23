@@ -31,9 +31,9 @@ public class SecurityConfig {
                          *           "/register" without logging in
                          */
                         // allow access to static resources
-                        .requestMatchers("/js/**", "/images/**").permitAll()
+                        .requestMatchers("/js/**", "/images/**", "/css/**").permitAll()
                         // allow access to register, login, terms and index without logging in
-                        .requestMatchers("/","/login","/terms", "/custom-error").permitAll()
+                        .requestMatchers("/","/login","/terms", "/custom-error","/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -33,6 +33,7 @@ public class TaskController {
                          object with the attribute name "todaysTasks"
                         using the method "addAttribute".
          **/
+        model.addAttribute("todayTasks", todayTasks);
 
 
         // Fetch all tasks for the current user, sorted by due date
@@ -47,6 +48,7 @@ public class TaskController {
         /** TODO 14: send the "formattedDate" to the client with the attribute name "serverTime"
          *           in the model
          **/
+        model.addAttribute("serverTime", formattedDate);
 
 
         /** TODO 20 (c): For the value of the attributes:
@@ -55,8 +57,8 @@ public class TaskController {
          *                ii. pendingCount - replace 0 with a call to the method countByCompleted
          *                                    of the taskService with the parameter false.
          **/
-        model.addAttribute("completedCount", 0);
-        model.addAttribute("pendingCount",0);
+        model.addAttribute("completedCount", taskService.countByCompleted(true));
+        model.addAttribute("pendingCount",taskService.countByCompleted(false));
 
         return "dashboard";
     }
@@ -91,7 +93,7 @@ public class TaskController {
     public String saveTask(@ModelAttribute("task") Task task, Model model, RedirectAttributes redirectAttributes) {
         try {
             /** TODO 11: call the "saveTask" method of the "taskService" to save the task object passed **/
-
+            taskService.saveTask(task);
             redirectAttributes.addFlashAttribute("successMessage", "Task added successfully!");
             return "redirect:/dashboard";
         } catch (Exception e) {

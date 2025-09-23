@@ -8,6 +8,7 @@ function validateForm()  {
      *          If there is an error the push the message "Error handling form fields!" and
      *          return false.
      **/
+    try {
         // Get form fields
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -61,8 +62,12 @@ function validateForm()  {
         }
 
 
-    // No errors, allow form submission
-    return true;
+        // No errors, allow form submission
+        return true;
+    }catch (e) {
+        errors.push("Error handling form fields!");
+        return false;
+    }
 }
 
 // This function displays client-side error messages in the error-messages-client box

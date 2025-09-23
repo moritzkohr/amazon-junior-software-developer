@@ -4,6 +4,7 @@
     max-width: 600px;
     margin: 40px auto;
     /** TODO 10: add a padding of 20px to the container **/
+    padding: 20px;
 
 
     /* Light background color for contrast */

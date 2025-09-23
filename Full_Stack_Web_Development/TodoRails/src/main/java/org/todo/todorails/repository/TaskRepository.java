@@ -30,5 +30,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      *               method to count how many tasks are completed
      *              or not based on a boolean value passed representing the completion status.
      **/
+    int countByCompleted(boolean completed);
 
 }

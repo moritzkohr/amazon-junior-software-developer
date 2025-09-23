@@ -1,4 +1,5 @@
 package org.todo.todorails.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,7 +55,7 @@ public class ProfileController {
          *           getPassword method of the user object to check that the
          *           passwords are same.
          **/
-        if (user == null ) {
+        if (user == null || passwordEncoder.matches(currentPassword, user.getPassword())) {
 
             // If passwords don't match, add a flash message and redirect to the dashboard
             redirectAttributes.addFlashAttribute("errorMessage", "Password not updated");
@@ -67,14 +68,15 @@ public class ProfileController {
 
         // Encode the new password
         /** TODO 23 (b) :  use the "encode" method to encode the new password passed in "newPassword" **/
-        String encodedPassword = newPassword;
+        String encodedPassword = passwordEncoder.encode(newPassword);
 
         // Update the password with the new password
         /** TODO 23 (c) :  update the password in the "user" object using "setPassword" of the User class**/
-
+        user.setPassword(encodedPassword);
 
         // Save the user with the updated password
         /** TODO 23 (d) :  update the "user" object by using the "save" method of the "UserService" **/
+        userService.save(user);
 
 
         // Add a success flash message and redirect to the dashboard

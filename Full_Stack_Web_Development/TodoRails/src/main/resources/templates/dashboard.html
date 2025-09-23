@@ -37,7 +37,7 @@
                                 which you sent from the server in
                                 TODO 14.
                      -->
-                    <span></span>
+                    <span th:text="${serverTime}"></span>
 
                 </span>
             </div>
@@ -47,7 +47,7 @@
 
         <div class="auth-links">
             <!-- TODO 24: add the hyperlink to point to "/logout" using either th:href or href -->
-            <a >Logout</a>
+            <a th:href="@{/logout}">Logout</a>
         </div>
     </div>
 
@@ -78,7 +78,6 @@
 
             <!-- High Priority -->
             <!-- TODO 13 (b): uncomment lines for "column high-priority" -->
-            <!--
            <div class="column high-priority">
                <div class="column-heading">High</div>
                <div class="todo-container">
@@ -103,12 +102,10 @@
                    </div>
                </div>
            </div>
-           -->
            <!-- End High Priority -->
 
             <!-- Medium Priority -->
             <!-- TODO 13 (c): uncomment lines for "column medium-priority" -->
-            <!--
            <div class="column medium-priority">
                <div class="column-heading">Medium</div>
                <div class="todo-container">
@@ -133,12 +130,10 @@
                    </div>
                </div>
            </div>
-           -->
            <!-- End Medium Priority -->
 
             <!-- Low Priority -->
             <!-- TODO 13 (d): uncomment lines for "column low-priority" -->
-            <!--
            <div class="column low-priority">
                <div class="column-heading">Low</div>
                <div class="todo-container">
@@ -163,7 +158,6 @@
                    </div>
                </div>
            </div>
-           -->
            <!-- End Low Priority-->
 
         </div>
